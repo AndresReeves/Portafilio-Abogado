@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Andrés Mauricio Sanabria Cepeda - Abogado</title>
+    <meta name="description" content="Portafolio profesional del Doctor Andrés Mauricio Sanabria Cepeda, Abogado y Analista Jurídico en Bogotá.">
+    
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#0f172a',
+                            900: '#020617',
+                        },
+                        gold: {
+                            400: '#facc15',
+                            500: '#b45309',
+                            600: '#92400e',
+                        },
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Lato', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* ========================================= */
+        /* CORRECCIÓN CRÍTICA: OCULTAMIENTO ROBUSTO */
+        /* ========================================= */
+        
+        /* Esta clase asegura que el elemento NUNCA se vea en pantalla */
+        .print-only {
+            display: none !important;
+            opacity: 0;
+            height: 0;
+            width: 0;
+            overflow: hidden;
+            visibility: hidden;
+        }
+
+        html { scroll-behavior: smooth; }
+        
+        .hero-bg {
+            background-image: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.75)), url('https://images.unsplash.com/photo-1589994965851-a8f479c573a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-color: #0f172a; 
+        }
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 60px;
+            height: 4px;
+            background-color: #b45309;
+        }
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 15px;
+            width: 2px;
+            background-color: #e2e8f0;
+        }
+
+        /* --- BOTONES FLOTANTES --- */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 100;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            background-color: #20ba5a;
+        }
+
+        /* --- DISEÑO JUEGO (MODO OSCURO) --- */
+        .game-card {
+            background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid #b45309; 
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            color: #f1f5f9; 
+        }
+        .option-btn {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.05); 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e2e8f0;
+        }
+        .option-btn:hover:not(:disabled) {
+            transform: translateX(5px);
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: #b45309;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .correct-answer {
+            background-color: rgba(16, 185, 129, 0.2) !important;
+            border-color: #10b981 !important;
+            color: #34d399 !important;
+        }
+        .wrong-answer {
+            background-color: rgba(239, 68, 68, 0.2) !important;
+            border-color: #ef4444 !important;
+            color: #f87171 !important;
+        }
+        .explanation-box {
+            animation: fadeIn 0.5s ease-out;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-left: 4px solid #b45309;
+        }
+
+        /* --- ESTILOS DE VIDEO --- */
+        #video-modal {
+            transition: opacity 0.3s ease;
+        }
+        #video-modal.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        #video-modal:not(.hidden) {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* --- ESTILOS ACORDEÓN DE EXPERIENCIA --- */
+        .job-details {
+            transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out, padding 0.5s ease;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .job-card.active .job-details {
+            max-height: 500px; 
+            opacity: 1;
+        }
+        .job-card.active .chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- ESTILOS ESPECÍFICOS PARA IMPRESIÓN/PDF --- */
+        @media print {
+            /* Ocultar TODO lo interactivo */
+            nav, header, section, footer, .whatsapp-btn, #video-modal {
+                display: none !important;
+            }
+            
+            /* Mostrar SOLO el CV formal plano */
+            body {
+                background-color: white !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            /* AQUÍ "REVIVIMOS" EL CV FORMAL SOLO PARA LA IMPRESORA */
+            .print-only {
+                display: block !important;
+                visibility: visible !important;
+                height: auto !important;
+                width: 100% !important;
+                overflow: visible !important;
+                opacity: 1 !important;
+            }
+
+            #formal-cv-print {
+                background-color: white;
+                color: black;
+                font-family: 'Times New Roman', Times, serif;
+                padding: 1.5cm;
+                width: 100%;
+                font-size: 11pt;
+            }
+
+            .print-header { text-align: center; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
+            .print-header h1 { font-size: 22pt; font-weight: bold; margin: 0; color: #0f172a; }
+            .print-header p { margin: 2px 0; font-size: 10pt; }
+            
+            .print-section { margin-bottom: 15px; break-inside: auto !important; page-break-inside: auto !important; }
+            .print-section h2 { font-size: 14pt; color: #0f172a; border-bottom: 1px solid #ccc; margin-bottom: 10px; text-transform: uppercase; break-after: avoid; }
+            
+            .print-job { margin-bottom: 12px; break-inside: auto !important; page-break-inside: auto !important; }
+            .print-job-header { display: flex; justify-content: space-between; font-weight: bold; break-inside: avoid; }
+            .print-job-title { font-style: italic; margin-bottom: 4px; }
+            .print-list { margin-top: 4px; padding-left: 20px; }
+            .print-list li { margin-bottom: 2px; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-700 font-sans">
+
+    <!-- Navegación -->
+    <nav class="bg-white shadow-md fixed w-full z-50 no-print">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="font-serif text-xl font-bold text-navy-800 tracking-wide">
+                        <i class="fa-solid fa-scale-balanced text-gold-500 mr-2"></i>A.S.C.
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#perfil" class="text-slate-600 hover:text-gold-500 transition duration-300 font-medium">Perfil</a>
+                    <a href="#servicios" class="text-slate-600 hover:text-gold-500 transition duration-300 font-medium">Áreas de Práctica</a>
+                    <a href="#experiencia" class="text-slate-600 hover:text-gold-500 transition duration-300 font-medium">Experiencia</a>
+                    <a href="#educacion" class="text-slate-600 hover:text-gold-500 transition duration-300 font-medium">Formación</a>
+                    <a href="#juego" class="text-slate-600 hover:text-gold-500 transition duration-300 font-medium"><i class="fa-solid fa-gamepad mr-1"></i> Reto Jurídico</a>
+                    <a href="#contacto" class="bg-navy-800 text-white px-4 py-2 rounded hover:bg-navy-900 transition duration-300">Contactar</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-navy-800 focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <a href="#perfil" class="block py-2 px-4 text-sm hover:bg-slate-100">Perfil</a>
+            <a href="#servicios" class="block py-2 px-4 text-sm hover:bg-slate-100">Áreas de Práctica</a>
+            <a href="#experiencia" class="block py-2 px-4 text-sm hover:bg-slate-100">Experiencia</a>
+            <a href="#educacion" class="block py-2 px-4 text-sm hover:bg-slate-100">Formación</a>
+            <a href="#juego" class="block py-2 px-4 text-sm hover:bg-slate-100 font-bold text-navy-800">Reto Jurídico</a>
+            <a href="#contacto" class="block py-2 px-4 text-sm text-gold-600 font-bold">Contactar</a>
+        </div>
+    </nav>
+
+    <!-- Botón WhatsApp -->
+    <a href="https://wa.me/573003318954" target="_blank" class="whatsapp-btn no-print" title="Contactar por WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Hero Section -->
+    <header class="hero-bg h-screen flex items-center justify-center text-center px-4">
+        <div class="max-w-4xl animate-fade-in-up relative z-10">
+            <h2 class="text-gold-500 text-lg md:text-xl font-bold uppercase tracking-widest mb-4 drop-shadow-md">Portafolio Profesional</h2>
+            <h1 class="font-serif text-5xl md:text-7xl text-white font-bold mb-6 leading-tight drop-shadow-lg">
+                Doctor Andrés Mauricio<br>Sanabria Cepeda
+            </h1>
+            <p class="text-slate-300 text-xl md:text-2xl mb-10 font-light max-w-2xl mx-auto drop-shadow-md">
+                Abogado | Analista Jurídico y Procesal
+            </p>
+            <div id="contacto-buttons" class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                 <!-- Botón para abrir el video -->
+                <button onclick="openVideoModal()" class="px-8 py-3 bg-gold-500 text-white font-bold rounded shadow-lg hover:bg-gold-600 transition transform hover:-translate-y-1 flex items-center">
+                    <i class="fa-solid fa-play-circle mr-2 text-xl"></i> Ver Presentación
+                </button>
+
+                <a href="#contacto" class="px-8 py-3 bg-transparent border-2 border-white text-white font-bold rounded hover:bg-white hover:text-navy-800 transition">
+                    Contactar Ahora
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MODAL DE VIDEO (Oculto por defecto) -->
+    <div id="video-modal" class="hidden fixed inset-0 z-[100] bg-black bg-opacity-90 flex items-center justify-center p-4">
+        <div class="relative w-full max-w-5xl bg-black rounded-lg shadow-2xl overflow-hidden border border-gray-800">
+            <!-- Botón Cerrar -->
+            <button onclick="closeVideoModal()" class="absolute top-4 right-4 text-white hover:text-gold-500 z-10 text-3xl transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div class="relative pb-[56.25%] h-0 bg-black">
+                <!-- VIDEO LOCAL PARA GITHUB PAGES -->
+                <video id="modal-video-player" controls class="absolute top-0 left-0 w-full h-full">
+                    <source src="video_presentacion.mp4" type="video/mp4">
+                    Tu navegador no soporta la etiqueta de video.
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección Perfil (SIN FOTO, SOLO TEXTO) -->
+    <section id="perfil" class="py-20 bg-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="font-serif text-4xl text-navy-800 font-bold mb-6 relative z-10 section-title">
+                        Perfil Profesional
+                    </h2>
+                    <p class="text-lg text-slate-600 mb-6 leading-relaxed">
+                        Egresado de Derecho (Universidad Católica de Colombia) con sólida trayectoria en <strong>litigio, sustanciación y defensa corporativa</strong>.
+                    </p>
+                    <p class="text-lg text-slate-600 mb-6 leading-relaxed">
+                        Experto en la gestión integral del ciclo procesal civil y administrativo, desde la radicación de demandas hasta la terminación judicial. Especialista en la mitigación de riesgos mediante la contestación técnica de acciones constitucionales (Tutelas), requerimientos de la SIC y gestión de PQRs. Destacada capacidad para el manejo de plataformas de la Rama Judicial (Samai, Ekogui, Legis Office) y optimización de trámites ejecutivos.
+                    </p>
+                </div>
+                
+                <!-- Tarjeta de Habilidades -->
+                <div class="bg-slate-50 p-8 rounded-lg shadow-xl border-t-4 border-navy-800">
+                    <h3 class="font-serif text-2xl text-navy-800 mb-6 flex items-center">
+                        <i class="fa-solid fa-layer-group mr-3 text-gold-500"></i> Herramientas Técnicas
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-bold text-slate-700">Rama Judicial (Samai/Ekogui)</span>
+                                <span class="text-gold-600 text-sm">Experto</span>
+                            </div>
+                            <div class="w-full bg-slate-200 rounded-full h-2">
+                                <div class="bg-navy-800 h-2 rounded-full" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-bold text-slate-700">Redacción Jurídica</span>
+                                <span class="text-gold-600 text-sm">Avanzado</span>
+                            </div>
+                            <div class="w-full bg-slate-200 rounded-full h-2">
+                                <div class="bg-navy-800 h-2 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-bold text-slate-700">Legis Office</span>
+                                <span class="text-gold-600 text-sm">Avanzado</span>
+                            </div>
+                            <div class="w-full bg-slate-200 rounded-full h-2">
+                                <div class="bg-navy-800 h-2 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                         <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-bold text-slate-700">Microsoft Office (Excel)</span>
+                                <span class="text-gold-600 text-sm">Avanzado</span>
+                            </div>
+                            <div class="w-full bg-slate-200 rounded-full h-2">
+                                <div class="bg-navy-800 h-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NUEVA SECCIÓN: ÁREAS DE PRÁCTICA (SERVICIOS) -->
+    <section id="servicios" class="py-20 bg-slate-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl text-navy-800 font-bold section-title">Áreas de Práctica</h2>
+                <p class="text-lg text-slate-600 max-w-2xl mx-auto">Soluciones jurídicas integrales diseñadas para proteger sus intereses y mitigar riesgos corporativos.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Servicio 1 -->
+                <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 border-b-4 border-gold-500 group">
+                    <div class="w-14 h-14 bg-navy-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-navy-800 transition">
+                        <i class="fa-solid fa-gavel text-2xl text-navy-800 group-hover:text-white transition"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy-900 mb-3">Litigio Civil y Ejecutivo</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Gestión del ciclo completo procesal. Recuperación de cartera, contestación de demandas y representación en audiencias judiciales.
+                    </p>
+                </div>
+
+                <!-- Servicio 2 -->
+                <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 border-b-4 border-gold-500 group">
+                    <div class="w-14 h-14 bg-navy-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-navy-800 transition">
+                        <i class="fa-solid fa-landmark text-2xl text-navy-800 group-hover:text-white transition"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy-900 mb-3">Derecho Administrativo</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Defensa en procesos de reparación directa, nulidad y restablecimiento. Gestión de trámites ante entidades públicas y agotamiento de vía gubernativa.
+                    </p>
+                </div>
+
+                <!-- Servicio 3 -->
+                <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 border-b-4 border-gold-500 group">
+                    <div class="w-14 h-14 bg-navy-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-navy-800 transition">
+                        <i class="fa-solid fa-user-shield text-2xl text-navy-800 group-hover:text-white transition"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy-900 mb-3">Acciones Constitucionales</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Redacción experta y contestación de Acciones de Tutela para la protección inmediata de derechos fundamentales. Manejo de incidentes de desacato.
+                    </p>
+                </div>
+
+                <!-- Servicio 4 -->
+                <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 border-b-4 border-gold-500 group">
+                    <div class="w-14 h-14 bg-navy-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-navy-800 transition">
+                        <i class="fa-solid fa-file-contract text-2xl text-navy-800 group-hover:text-white transition"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy-900 mb-3">Derecho Corporativo</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Constitución y estructuración de sociedades comerciales. Asesoría integral en la formalización de vehículos de inversión y gobierno corporativo.
+                    </p>
+                </div>
+
+                <!-- Servicio 5 -->
+                <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 border-b-4 border-gold-500 group">
+                    <div class="w-14 h-14 bg-navy-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-navy-800 transition">
+                        <i class="fa-solid fa-magnifying-glass-chart text-2xl text-navy-800 group-hover:text-white transition"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy-900 mb-3">Gestión Inmobiliaria</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Estudios de títulos y revisión de certificados de libertad. Gestión de escrituración de garantías hipotecarias y procesos de sucesión notarial.
+                    </p>
+                </div>
+
+                <!-- Servicio 6 -->
+                <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 border-b-4 border-gold-500 group">
+                    <div class="w-14 h-14 bg-navy-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-navy-800 transition">
+                        <i class="fa-solid fa-hand-holding-dollar text-2xl text-navy-800 group-hover:text-white transition"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy-900 mb-3">Gestión Parafiscal (UGPP)</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Representación en actuaciones ante la UGPP y gestión de negocios fiduciarios, asegurando el cumplimiento normativo.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Experiencia (EXPANDIBLE) -->
+    <section id="experiencia" class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl text-navy-800 font-bold section-title">Experiencia Profesional</h2>
+            </div>
+
+            <div class="relative timeline-line space-y-8">
+                
+                <!-- Trabajo ACTUAL -->
+                <div class="relative pl-12 group">
+                    <div class="absolute left-[6px] top-8 w-5 h-5 bg-gold-500 rounded-full border-4 border-white shadow z-10"></div>
+                    <div class="job-card bg-white rounded-lg shadow-md hover:shadow-xl transition duration-300 border-l-4 border-navy-800 overflow-hidden">
+                        <button class="w-full text-left p-6 flex flex-col md:flex-row justify-between items-start md:items-center focus:outline-none" onclick="toggleJob(this)">
+                            <div>
+                                <h3 class="text-xl font-bold text-navy-800">Soluciones Empresariales Integrales XEI S.A.S.</h3>
+                                <p class="text-gold-600 font-bold text-lg">Abogado Junior</p>
+                            </div>
+                            <div class="flex items-center mt-2 md:mt-0 gap-4">
+                                <span class="text-sm text-slate-500 bg-slate-100 px-3 py-1 rounded-full font-bold border border-slate-200">
+                                    Nov 2025 – Presente
+                                </span>
+                                <i class="fa-solid fa-chevron-down text-navy-800 transition-transform duration-300 chevron-icon"></i>
+                            </div>
+                        </button>
+                        <div class="job-details bg-slate-50 px-6">
+                            <ul class="space-y-2 text-slate-600 list-disc list-inside pb-6 pt-2 border-t border-slate-100">
+                                <li><strong>Derecho Corporativo:</strong> Lidero la constitución y estructuración de sociedades comerciales y vehículos de inversión.</li>
+                                <li><strong>Gestión Inmobiliaria y Notarial:</strong> Ejecuto estudios de títulos, revisión de certificados de libertad y gestión de escrituras hipotecarias y sucesiones.</li>
+                                <li><strong>Trámites Administrativos:</strong> Represento a la firma en actuaciones ante la UGPP y en la gestión de negocios fiduciarios.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trabajo 1 -->
+                <div class="relative pl-12 group">
+                    <div class="absolute left-[6px] top-8 w-5 h-5 bg-navy-800 rounded-full border-4 border-white shadow z-10"></div>
+                    <div class="job-card bg-white rounded-lg shadow-md hover:shadow-xl transition duration-300 border-l-4 border-slate-300 overflow-hidden">
+                        <button class="w-full text-left p-6 flex flex-col md:flex-row justify-between items-start md:items-center focus:outline-none" onclick="toggleJob(this)">
+                            <div>
+                                <h3 class="text-xl font-bold text-navy-800">Contacto Solutions S.A.S.</h3>
+                                <p class="text-slate-600 font-semibold">Analista Jurídico Operativo</p>
+                            </div>
+                            <div class="flex items-center mt-2 md:mt-0 gap-4">
+                                <span class="text-sm text-slate-500 bg-slate-100 px-3 py-1 rounded-full">Jul 2025 – Nov 2025</span>
+                                <i class="fa-solid fa-chevron-down text-navy-800 transition-transform duration-300 chevron-icon"></i>
+                            </div>
+                        </button>
+                        <div class="job-details bg-slate-50 px-6">
+                            <ul class="space-y-2 text-slate-600 list-disc list-inside pb-6 pt-2 border-t border-slate-100">
+                                <li>Lideré el <strong>ciclo completo de procesos civiles</strong>, desde la radicación hasta la sentencia.</li>
+                                <li>Ejecuté la defensa técnica ante requerimientos de la <strong>SIC</strong> y gestión de PQRs.</li>
+                                <li>Redacté y gestioné la contestación de <strong>Acciones de Tutela</strong> en términos perentorios.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trabajo 2 -->
+                <div class="relative pl-12 group">
+                    <div class="absolute left-[6px] top-8 w-5 h-5 bg-navy-800 rounded-full border-4 border-white shadow z-10"></div>
+                    <div class="job-card bg-white rounded-lg shadow-md hover:shadow-xl transition duration-300 border-l-4 border-slate-300 overflow-hidden">
+                        <button class="w-full text-left p-6 flex flex-col md:flex-row justify-between items-start md:items-center focus:outline-none" onclick="toggleJob(this)">
+                            <div>
+                                <h3 class="text-xl font-bold text-navy-800">Fiduciaria La Previsora S.A.</h3>
+                                <p class="text-slate-600 font-semibold">Judicante Ad Honorem</p>
+                            </div>
+                            <div class="flex items-center mt-2 md:mt-0 gap-4">
+                                <span class="text-sm text-slate-500 bg-slate-100 px-3 py-1 rounded-full">Mar 2024 – Mar 2025</span>
+                                <i class="fa-solid fa-chevron-down text-navy-800 transition-transform duration-300 chevron-icon"></i>
+                            </div>
+                        </button>
+                        <div class="job-details bg-slate-50 px-6">
+                            <ul class="space-y-2 text-slate-600 list-disc list-inside pb-6 pt-2 border-t border-slate-100">
+                                <li>Redacción de autos admisorios e informes de defensa en reparación directa.</li>
+                                <li>Gestión administrativa de procesos de sanción por mora y pensiones.</li>
+                                <li>Administración de expedientes en Ekogui, Gestor del MEN y Samai.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trabajo 3 -->
+                <div class="relative pl-12 group">
+                    <div class="absolute left-[6px] top-8 w-5 h-5 bg-navy-800 rounded-full border-4 border-white shadow z-10"></div>
+                    <div class="job-card bg-white rounded-lg shadow-md hover:shadow-xl transition duration-300 border-l-4 border-slate-300 overflow-hidden">
+                        <button class="w-full text-left p-6 flex flex-col md:flex-row justify-between items-start md:items-center focus:outline-none" onclick="toggleJob(this)">
+                            <div>
+                                <h3 class="text-xl font-bold text-navy-800">Inversionistas Estratégicos S.A.S.</h3>
+                                <p class="text-slate-600 font-semibold">Dependiente Judicial</p>
+                            </div>
+                            <div class="flex items-center mt-2 md:mt-0 gap-4">
+                                <span class="text-sm text-slate-500 bg-slate-100 px-3 py-1 rounded-full">Jun 2023 – Mar 2024</span>
+                                <i class="fa-solid fa-chevron-down text-navy-800 transition-transform duration-300 chevron-icon"></i>
+                            </div>
+                        </button>
+                        <div class="job-details bg-slate-50 px-6">
+                            <ul class="space-y-2 text-slate-600 list-disc list-inside pb-6 pt-2 border-t border-slate-100">
+                                <li>Vigilancia judicial presencial y digital en juzgados civiles y laborales.</li>
+                                <li>Trámites ante Instrumentos Públicos, Alcaldías e Inspecciones de Policía.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Trabajo 4 -->
+                 <div class="relative pl-12 group">
+                    <div class="absolute left-[6px] top-8 w-5 h-5 bg-navy-800 rounded-full border-4 border-white shadow z-10"></div>
+                    <div class="job-card bg-white rounded-lg shadow-md hover:shadow-xl transition duration-300 border-l-4 border-slate-300 overflow-hidden">
+                        <button class="w-full text-left p-6 flex flex-col md:flex-row justify-between items-start md:items-center focus:outline-none" onclick="toggleJob(this)">
+                            <div>
+                                <h3 class="text-xl font-bold text-navy-800">Inversiones Sofía S.A.S.</h3>
+                                <p class="text-slate-600 font-semibold">Dependiente Judicial</p>
+                            </div>
+                            <div class="flex items-center mt-2 md:mt-0 gap-4">
+                                <span class="text-sm text-slate-500 bg-slate-100 px-3 py-1 rounded-full">Ene 2023 – May 2023</span>
+                                <i class="fa-solid fa-chevron-down text-navy-800 transition-transform duration-300 chevron-icon"></i>
+                            </div>
+                        </button>
+                        <div class="job-details bg-slate-50 px-6">
+                            <ul class="space-y-2 text-slate-600 list-disc list-inside pb-6 pt-2 border-t border-slate-100">
+                                <li>Gestión de medidas cautelares, embargos y adjudicaciones.</li>
+                                <li>Control de cadena de custodia documental en despachos judiciales.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Trabajo 5 -->
+                 <div class="relative pl-12 group">
+                    <div class="absolute left-[6px] top-8 w-5 h-5 bg-navy-800 rounded-full border-4 border-white shadow z-10"></div>
+                    <div class="job-card bg-white rounded-lg shadow-md hover:shadow-xl transition duration-300 border-l-4 border-slate-300 overflow-hidden">
+                        <button class="w-full text-left p-6 flex flex-col md:flex-row justify-between items-start md:items-center focus:outline-none" onclick="toggleJob(this)">
+                            <div>
+                                <h3 class="text-xl font-bold text-navy-800">Matempo S.A.S.</h3>
+                                <p class="text-slate-600 font-semibold">Analista Jurídico</p>
+                            </div>
+                            <div class="flex items-center mt-2 md:mt-0 gap-4">
+                                <span class="text-sm text-slate-500 bg-slate-100 px-3 py-1 rounded-full">Feb 2021 – Mar 2022</span>
+                                <i class="fa-solid fa-chevron-down text-navy-800 transition-transform duration-300 chevron-icon"></i>
+                            </div>
+                        </button>
+                        <div class="job-details bg-slate-50 px-6">
+                            <p class="text-slate-600 pb-6 pt-2 border-t border-slate-100">Litigio ejecutivo, redacción de demandas y reclamaciones efectivas ante FNG y FAG.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Educación -->
+    <section id="educacion" class="py-20 bg-slate-50">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="font-serif text-4xl text-navy-800 font-bold section-title mb-12">Formación Académica</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Tarjeta Universidad -->
+                <div class="bg-white p-8 rounded-lg border border-slate-200 shadow-sm hover:shadow-lg transition">
+                    <i class="fa-solid fa-graduation-cap text-5xl text-gold-500 mb-4"></i>
+                    <h3 class="text-xl font-bold text-navy-800 mb-2">Abogado</h3>
+                    <p class="text-lg text-slate-600 mb-1">Universidad Católica de Colombia</p>
+                    <p class="text-sm text-slate-500">2024 (Egresado, en proceso de grado)</p>
+                </div>
+
+                <!-- Tarjeta Congreso -->
+                <div class="bg-white p-8 rounded-lg border border-slate-200 shadow-sm hover:shadow-lg transition">
+                    <i class="fa-solid fa-certificate text-5xl text-navy-800 mb-4"></i>
+                    <h3 class="text-xl font-bold text-navy-800 mb-2">Certificación</h3>
+                    <p class="text-lg text-slate-600 mb-1">VI Congreso Nacional de Derecho Disciplinario</p>
+                    <p class="text-sm text-slate-500">2022</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIDEOJUEGO JURÍDICO -->
+    <section id="juego" class="py-20 bg-navy-900 no-print">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-10">
+                <div class="inline-block p-4 rounded-full bg-navy-800 border-2 border-gold-500 mb-4 shadow-lg">
+                    <i class="fa-solid fa-scale-balanced text-4xl text-gold-500"></i>
+                </div>
+                <h2 class="font-serif text-4xl text-white font-bold mb-2">Reto del Litigante</h2>
+                <p class="text-slate-300">Simulación Procesal: Demuestra tu agilidad en la gestión jurídica.</p>
+            </div>
+
+            <!-- Tarjeta Principal del Juego -->
+            <div class="game-card p-8 md:p-12 relative min-h-[450px] flex flex-col items-center justify-center">
+                
+                <!-- Pantalla de Inicio -->
+                <div id="start-screen" class="text-center w-full">
+                    <h3 class="text-2xl font-bold text-white mb-4">Simulación de Audiencia</h3>
+                    <p class="mb-8 text-slate-300 text-lg">Se cargarán 3 casos aleatorios de nuestro banco de expedientes. ¿Estás listo para tomar la decisión correcta?</p>
+                    <button onclick="startGame()" class="bg-gold-500 hover:bg-gold-600 text-navy-900 font-bold py-4 px-10 rounded-lg shadow-lg transition transform hover:-translate-y-1 flex items-center justify-center mx-auto text-lg">
+                        <i class="fa-solid fa-play mr-2"></i> Iniciar Caso
+                    </button>
+                </div>
+
+                <!-- Pantalla de Preguntas (Oculta al inicio) -->
+                <div id="question-screen" class="hidden w-full max-w-3xl">
+                    <!-- Cabecera de Estado -->
+                    <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-700">
+                        <span id="question-counter" class="text-sm font-bold text-gold-400 uppercase tracking-wider">Caso 1 de 3</span>
+                        <div class="bg-navy-800 border border-gold-600 px-3 py-1 rounded-full">
+                            <span id="score-display" class="text-sm font-bold text-white">Aciertos: 0</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Pregunta -->
+                    <div class="mb-8">
+                        <h4 id="question-text" class="text-lg md:text-xl font-bold text-white leading-snug"></h4>
+                    </div>
+
+                    <!-- Opciones -->
+                    <div id="options-container" class="space-y-3 mb-6">
+                        <!-- Las opciones se generan con JS -->
+                    </div>
+
+                    <!-- Caja de Argumentación (Oculta hasta responder) -->
+                    <div id="explanation-container" class="hidden explanation-box p-6 rounded-r-lg mb-6 shadow-sm">
+                        <div class="flex items-start">
+                            <i class="fa-solid fa-gavel text-gold-500 mt-1 mr-3 text-xl"></i>
+                            <div>
+                                <h5 id="explanation-title" class="font-bold text-white mb-1 text-lg">Argumentación Jurídica</h5>
+                                <p id="explanation-text" class="text-slate-200 text-sm leading-relaxed text-justify"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botón Siguiente (Oculto hasta responder) -->
+                    <div id="next-btn-container" class="hidden text-right">
+                        <button onclick="nextQuestion()" class="bg-gold-500 text-navy-900 font-bold px-6 py-2 rounded hover:bg-gold-600 transition flex items-center ml-auto">
+                            Siguiente Caso <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pantalla Final (Oculta al inicio) -->
+                <div id="end-screen" class="hidden text-center w-full animate-fade-in">
+                    <div id="final-icon" class="text-7xl mb-6 inline-block"></div>
+                    <h3 id="final-title" class="text-3xl font-bold text-white mb-2"></h3>
+                    <p id="final-score-text" class="text-xl font-bold text-gold-400 mb-4"></p>
+                    <p id="final-message" class="text-slate-300 mb-8 text-lg max-w-md mx-auto"></p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <button onclick="startGame()" class="bg-transparent border-2 border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-navy-900 px-8 py-3 rounded-lg font-bold transition">
+                            <i class="fa-solid fa-rotate-right mr-2"></i> Nuevo Caso
+                        </button>
+                        <a href="#contacto" class="bg-white hover:bg-slate-200 text-navy-900 px-8 py-3 rounded-lg font-bold transition shadow-md">
+                            Contratar Abogado
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Contacto -->
+    <footer id="contacto" class="bg-navy-900 text-white py-16 no-print">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="font-serif text-4xl font-bold mb-8">¿Hablamos?</h2>
+            <p class="text-xl text-slate-300 mb-10 max-w-2xl mx-auto">
+                Disponible para vinculación inmediata. Estoy listo para aportar mi experiencia en litigio y gestión jurídica a su equipo.
+            </p>
+            
+            <div class="flex flex-col md:flex-row justify-center gap-6 mb-12">
+                <a href="mailto:andysancep@gmail.com" class="flex items-center justify-center bg-gold-600 hover:bg-gold-500 text-white px-6 py-4 rounded-lg transition duration-300">
+                    <i class="fa-solid fa-envelope mr-3 text-xl"></i>
+                    <span class="text-lg font-bold">andysancep@gmail.com</span>
+                </a>
+                <a href="tel:+573003318954" class="flex items-center justify-center bg-navy-800 hover:bg-navy-700 border border-slate-600 text-white px-6 py-4 rounded-lg transition duration-300">
+                    <i class="fa-solid fa-phone mr-3 text-xl"></i>
+                    <span class="text-lg font-bold">(+57) 300 331 8954</span>
+                </a>
+                <!-- Botón LinkedIn en Footer -->
+                <a href="https://www.linkedin.com/in/andr%C3%A9s-mauricio-sanabria-3078a8183?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="flex items-center justify-center bg-blue-600 hover:bg-blue-700 border border-slate-600 text-white px-6 py-4 rounded-lg transition duration-300">
+                    <i class="fa-brands fa-linkedin-in mr-3 text-xl"></i>
+                    <span class="text-lg font-bold">LinkedIn</span>
+                </a>
+            </div>
+            
+            <div class="border-t border-slate-800 pt-8 mt-8 text-slate-500 text-sm">
+                <p>&copy; 2024 Doctor Andrés Mauricio Sanabria Cepeda. Todos los derechos reservados.</p>
+                <div class="mt-4 flex justify-center space-x-4">
+                    <button id="print-btn" type="button" class="text-slate-400 hover:text-white underline flex items-center">
+                        <i class="fa-solid fa-download mr-2"></i> Descargar Hoja de Vida
+                    </button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================= -->
+    <!--  HOJA DE VIDA FORMAL (OCULTA EN PANTALLA) -->
+    <!-- ========================================= -->
+    
+    <div id="formal-cv-print" class="print-only">
+        <div class="print-header">
+            <h1>Doctor Andrés Mauricio Sanabria Cepeda</h1>
+            <p><strong>Abogado | Analista Jurídico y Procesal</strong></p>
+            <p>Bogotá D.C., Colombia | (+57) 300 331 8954 | andysancep@gmail.com</p>
+        </div>
+
+        <div class="print-section">
+            <h2>Perfil Profesional</h2>
+            <p style="text-align: justify;">
+                Egresado de Derecho (Universidad Católica de Colombia) con sólida trayectoria en litigio, sustanciación y defensa corporativa. Experto en la gestión integral del ciclo procesal civil y administrativo, desde la radicación de demandas hasta la terminación judicial. Especialista en la mitigación de riesgos mediante la contestación técnica de acciones constitucionales (Tutelas), requerimientos de la SIC y gestión de PQRs. Destacada capacidad para el manejo de plataformas de la Rama Judicial (Samai, Ekogui, Legis Office) y optimización de trámites ejecutivos y de reparación directa.
+            </p>
+        </div>
+
+        <div class="print-section">
+            <h2>Experiencia Profesional</h2>
+
+            <div class="print-job">
+                <div class="print-job-header">
+                    <span>Soluciones Empresariales Integrales XEI S.A.S.</span>
+                    <span>Nov 2025 – Presente</span>
+                </div>
+                <div class="print-job-title">Abogado Junior | Bogotá D.C.</div>
+                <ul class="print-list">
+                    <li><strong>Derecho Corporativo:</strong> Lidero la constitución y estructuración de sociedades comerciales, brindando asesoría integral en la formalización de vehículos de inversión y gobierno corporativo.</li>
+                    <li><strong>Gestión Inmobiliaria y Notarial:</strong> Ejecuto estudios de títulos y revisión de certificados de libertad y tradición para operaciones inmobiliarias seguras; gestiono la escrituración de garantías hipotecarias y procesos de sucesión notarial.</li>
+                    <li><strong>Trámites Administrativos y Fiduciarios:</strong> Represento a la firma en actuaciones ante la UGPP y en la gestión de negocios fiduciarios, asegurando el cumplimiento normativo y la correcta administración de patrimonios autónomos.</li>
+                </ul>
+            </div>
+
+            <div class="print-job">
+                <div class="print-job-header">
+                    <span>Contacto Solutions S.A.S.</span>
+                    <span>Jul 2025 – Nov 2025</span>
+                </div>
+                <div class="print-job-title">Analista Jurídico Operativo | Bogotá D.C.</div>
+                <ul class="print-list">
+                    <li>Lideré el ciclo completo de procesos civiles, abarcando desde la proyección y radicación de la demanda hasta la obtención de sentencia o terminación, asegurando el impulso procesal oportuno en todas las instancias.</li>
+                    <li>Ejecuté la defensa técnica ante requerimientos de la Superintendencia de Industria y Comercio (SIC), contestación de Derechos de Petición y gestión de PQRs, mitigando riesgos sancionatorios para la compañía.</li>
+                    <li>Redacté y gestioné la contestación de Acciones de Tutela, garantizando la protección de los intereses corporativos dentro de los perentorios términos constitucionales.</li>
+                </ul>
+            </div>
+
+            <div class="print-job">
+                <div class="print-job-header">
+                    <span>Fiduciaria La Previsora S.A.</span>
+                    <span>Mar 2024 – Mar 2025</span>
+                </div>
+                <div class="print-job-title">Judicante Ad Honorem (Área de Litigios) | Bogotá D.C.</div>
+                <ul class="print-list">
+                    <li>Redacté proyectos de autos admisorios e informes de defensa judicial en procesos de reparación directa y contencioso-administrativos.</li>
+                    <li>Gestioné eficazmente procesos de sanción por mora, pensiones de jubilación y sobrevivientes, asegurando el cumplimiento de términos legales.</li>
+                    <li>Administré el cargue y seguimiento de expedientes en plataformas Ekogui, Gestor del MEN y Samai, garantizando la actualización en tiempo real del estado procesal.</li>
+                </ul>
+            </div>
+
+            <div class="print-job">
+                <div class="print-job-header">
+                    <span>Inversionistas Estratégicos S.A.S.</span>
+                    <span>Jun 2023 – Mar 2024</span>
+                </div>
+                <div class="print-job-title">Dependiente Judicial | Bogotá D.C.</div>
+                <ul class="print-list">
+                    <li>Ejecuté la vigilancia judicial presencial y digital, asegurando el movimiento de expedientes en juzgados civiles y laborales.</li>
+                    <li>Lideré trámites ante Instrumentos Públicos, Alcaldías e Inspecciones de Policía, optimizando los tiempos de legalización de documentos.</li>
+                    <li>Elaboré informes de gestión laboral y estatus procesal para la toma de decisiones gerenciales.</li>
+                </ul>
+            </div>
+
+            <div class="print-job">
+                <div class="print-job-header">
+                    <span>Inversiones Sofía S.A.S.</span>
+                    <span>Ene 2023 – May 2023</span>
+                </div>
+                <div class="print-job-title">Dependiente Judicial | Bogotá D.C.</div>
+                <ul class="print-list">
+                    <li>Gestioné la radicación y control de medidas cautelares, embargos y adjudicaciones ante entidades bancarias y la SNR.</li>
+                    <li>Coordiné la radicación y retiro de documentos críticos en despachos judiciales y notarías, manteniendo la cadena de custodia documental.</li>
+                </ul>
+            </div>
+
+            <div class="print-job">
+                <div class="print-job-header">
+                    <span>Matempo S.A.S.</span>
+                    <span>Feb 2021 – Mar 2022</span>
+                </div>
+                <div class="print-job-title">Analista Jurídico | Bogotá D.C.</div>
+                <ul class="print-list">
+                    <li>Redacté y radiqué demandas ejecutivas, logrando llevar procesos a través de todas sus etapas hasta la terminación.</li>
+                    <li>Elaboré memoriales de impulso, poderes, reformas de demanda y recursos de reposición.</li>
+                    <li>Gestioné reclamaciones efectivas ante el Fondo Nacional de Garantías (FNG) y el Fondo Agropecuario de Garantías (FAG).</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="print-section">
+            <h2>Formación Académica</h2>
+            <div class="print-job">
+                <div class="print-job-header">
+                    <span>Universidad Católica de Colombia</span>
+                    <span>2024</span>
+                </div>
+                <div class="print-job-title">Abogado (Egresado, en proceso de grado)</div>
+            </div>
+            <div class="print-job">
+                <div class="print-job-header">
+                    <span>VI Congreso Nacional de Derecho Disciplinario</span>
+                    <span>2022</span>
+                </div>
+                <div class="print-job-title">Asistente | Certificación</div>
+            </div>
+        </div>
+
+        <div class="print-section">
+            <h2>Habilidades y Herramientas</h2>
+            <ul class="print-list">
+                <li><strong>Software Jurídico:</strong> Legis Office, Ekogui, Samai, Gestor del MEN, Consulta Unificada de Procesos (Rama Judicial).</li>
+                <li><strong>Ofimática:</strong> Microsoft Office Avanzado (Excel para control de procesos, Word para redacción legal).</li>
+                <li><strong>Competencias:</strong> Redacción Jurídica, Investigación Jurisprudencial, Atención al Detalle, Gestión del Tiempo.</li>
+            </ul>
+        </div>
+
+        <div class="print-section">
+            <h2>Referencias</h2>
+            <ul class="print-list">
+                <li><strong>Juan Carlos Cepeda Herrera</strong> – Doctor en Filosofía – Celular: 317 737 88 37</li>
+                <li><strong>Jinneth Michelle Galvis Sandoval</strong> – Abogada Especialista – Celular: 313 612 34 26</li>
+                <li><strong>Oscar Ricardo Cepeda Herrera</strong> – Ingeniero de Sistemas – Celular: 315 221 62 06</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Menú Móvil
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const printBtn = document.getElementById('print-btn');
+
+        if (btn && menu) {
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+            });
+        }
+
+        if (printBtn) {
+            printBtn.addEventListener('click', () => {
+                window.focus(); 
+                window.print();
+            });
+        }
+
+        // --- FUNCIONALIDAD ACORDEÓN ---
+        function toggleJob(button) {
+            const card = button.parentElement;
+            // Toggle de clase 'active' para estilos (como la rotación del icono)
+            card.classList.toggle('active');
+            
+            // Controlar el panel de detalles
+            // Buscamos el div.job-details que es hermano del botón dentro de la misma card
+            // Ojo: button y div.job-details son hijos de div.job-card
+            const details = card.querySelector('.job-details');
+            if (details) {
+                if (details.style.maxHeight) {
+                    details.style.maxHeight = null; // Colapsar
+                } else {
+                    details.style.maxHeight = details.scrollHeight + "px"; // Expandir
+                }
+            }
+        }
+
+        // --- MODAL VIDEO ---
+        function openVideoModal() {
+            document.getElementById('video-modal').classList.remove('hidden');
+            // Intentar reproducir si es video local
+            const video = document.getElementById('modal-video-player');
+            if (video) video.play();
+        }
+
+        function closeVideoModal() {
+            document.getElementById('video-modal').classList.add('hidden');
+            // Pausar video al cerrar
+            const video = document.getElementById('modal-video-player');
+            if (video) {
+                video.pause();
+                video.currentTime = 0;
+            }
+        }
+
+        // --- BANCO DE 50 PREGUNTAS PRÁCTICAS ---
+        const questionBank = [
+            {
+                question: "Recibes una notificación de una Acción de Tutela. ¿Cuál es el término para contestarla?",
+                options: [
+                    { text: "3 días hábiles", correct: false },
+                    { text: "El que indique el Juez en el auto (usualmente 1 a 3 días)", correct: true },
+                    { text: "10 días calendario", correct: false }
+                ],
+                explanation: "Correcto. Aunque el fallo debe darse en 10 días, el término de traslado lo fija el juez dada la urgencia del mecanismo."
+            },
+            {
+                question: "En proceso ejecutivo, el demandado NO propone excepciones en 10 días. ¿Qué sigue?",
+                options: [
+                    { text: "Audiencia de conciliación.", correct: false },
+                    { text: "Juez ordena seguir adelante con la ejecución.", correct: true },
+                    { text: "Archivo del proceso.", correct: false }
+                ],
+                explanation: "Correcto. Según el Art. 440 CGP, sin excepciones, se ordena seguir la ejecución mediante auto irrecurrible."
+            },
+            {
+                question: "Según Ley 2213/2022, ¿un poder especial requiere autenticación notarial?",
+                options: [
+                    { text: "No, se presume auténtico con antefirma.", correct: true },
+                    { text: "Sí, siempre.", correct: false },
+                    { text: "Solo si es cuantía mayor.", correct: false }
+                ],
+                explanation: "Correcto. Los poderes pueden otorgarse por mensaje de datos sin firma manuscrita ni nota notarial."
+            },
+            {
+                question: "¿Cuál es el término para responder un Derecho de Petición general?",
+                options: [
+                    { text: "15 días hábiles.", correct: true },
+                    { text: "10 días calendario.", correct: false },
+                    { text: "30 días hábiles.", correct: false }
+                ],
+                explanation: "Correcto. Término general de la Ley 1755 de 2015."
+            },
+            {
+                question: "Recurso contra auto dictado en audiencia. ¿Cuándo se interpone?",
+                options: [
+                    { text: "Por escrito en 3 días.", correct: false },
+                    { text: "Oral e inmediatamente en la audiencia.", correct: true },
+                    { text: "Al finalizar la audiencia.", correct: false }
+                ],
+                explanation: "Correcto. Art. 318 CGP: recursos en audiencia se sustentan y deciden oralmente allí mismo."
+            },
+            {
+                question: "Término de caducidad para Acción de Reparación Directa.",
+                options: [
+                    { text: "2 años desde el hecho o conocimiento del daño.", correct: true },
+                    { text: "4 meses.", correct: false },
+                    { text: "5 años.", correct: false }
+                ],
+                explanation: "Correcto. Art. 164 CPACA establece 2 años de caducidad."
+            },
+            {
+                question: "¿A qué correo se notifica a una Persona Jurídica (Ley 2213)?",
+                options: [
+                    { text: "Correo personal del representante.", correct: false },
+                    { text: "Dirección electrónica inscrita en Cámara de Comercio.", correct: true },
+                    { text: "Cualquier correo de la web.", correct: false }
+                ],
+                explanation: "Correcto. La dirección de notificación válida es la registrada en el RUES."
+            },
+            {
+                question: "En proceso laboral, apelación de sentencia de primera instancia.",
+                options: [
+                    { text: "Oralmente en la misma audiencia.", correct: true },
+                    { text: "Escrito en 3 días.", correct: false },
+                    { text: "No tiene apelación.", correct: false }
+                ],
+                explanation: "Correcto. En laboral oral, la apelación se presenta en estrado al dictarse el fallo."
+            },
+            {
+                question: "¿Dónde se publican hoy las notificaciones por estado?",
+                options: [
+                    { text: "En cartelera física.", correct: false },
+                    { text: "Micrositio web del Juzgado (Rama Judicial).", correct: true },
+                    { text: "Por correo certificado.", correct: false }
+                ],
+                explanation: "Correcto. Los estados son electrónicos y se fijan en la web de la Rama Judicial."
+            },
+            {
+                question: "¿Qué pasa si no asistes a la audiencia inicial sin excusa (CGP)?",
+                options: [
+                    { text: "Multa y presunción de certeza de los hechos.", correct: true },
+                    { text: "Solo multa.", correct: false },
+                    { text: "Se reprograma.", correct: false }
+                ],
+                explanation: "Correcto. Art. 372 CGP: inasistencia injustificada genera consecuencias procesales y pecuniarias."
+            },
+            {
+                question: "Término para interponer recurso de reposición contra auto escrito.",
+                options: [
+                    { text: "3 días siguientes a notificación.", correct: true },
+                    { text: "5 días.", correct: false },
+                    { text: "10 días.", correct: false }
+                ],
+                explanation: "Correcto. Art. 318 CGP: 3 días de ejecutoria para autos escritos."
+            },
+            {
+                question: "¿La demanda de reconvención en qué momento se presenta?",
+                options: [
+                    { text: "En cualquier momento.", correct: false },
+                    { text: "Dentro del término de traslado de la demanda.", correct: true },
+                    { text: "En la audiencia inicial.", correct: false }
+                ],
+                explanation: "Correcto. Art. 371 CGP: simultáneamente con la contestación."
+            },
+            {
+                question: "Cuantía de Mínima Cuantía en proceso civil.",
+                options: [
+                    { text: "0 a 40 SMLMV.", correct: true },
+                    { text: "40 a 150 SMLMV.", correct: false },
+                    { text: "Más de 150 SMLMV.", correct: false }
+                ],
+                explanation: "Correcto. Art. 25 CGP define los rangos de cuantía."
+            },
+            {
+                question: "Requisito de procedibilidad en administrativo antes de demandar nulidad y restablecimiento.",
+                options: [
+                    { text: "Conciliación extrajudicial.", correct: true },
+                    { text: "Reclamo administrativo previo.", correct: false },
+                    { text: "Ninguno.", correct: false }
+                ],
+                explanation: "Correcto. La conciliación es obligatoria salvo excepciones (medidas cautelares)."
+            },
+            {
+                question: "Término para contestar demanda en proceso verbal sumario.",
+                options: [
+                    { text: "10 días.", correct: true },
+                    { text: "20 días.", correct: false },
+                    { text: "5 días.", correct: false }
+                ],
+                explanation: "Correcto. Art. 391 CGP reduce el término a 10 días."
+            },
+            {
+                question: "¿Se puede retirar la demanda después de notificada?",
+                options: [
+                    { text: "Sí, libremente.", correct: false },
+                    { text: "Solo si el demandado acepta.", correct: true },
+                    { text: "No se puede.", correct: false }
+                ],
+                explanation: "Correcto. Art. 92 CGP: tras notificación, requiere consentimiento del demandado."
+            },
+            {
+                question: "Caducidad Acción de Nulidad y Restablecimiento del Derecho.",
+                options: [
+                    { text: "4 meses.", correct: true },
+                    { text: "2 años.", correct: false },
+                    { text: "En cualquier tiempo.", correct: false }
+                ],
+                explanation: "Correcto. Art. 164 CPACA establece 4 meses desde notificación del acto."
+            },
+            {
+                question: "¿Quién paga las costas procesales?",
+                options: [
+                    { text: "La parte vencida en el proceso.", correct: true },
+                    { text: "Cada parte paga lo suyo.", correct: false },
+                    { text: "El Estado.", correct: false }
+                ],
+                explanation: "Correcto. Art. 365 CGP: condena en costas a la parte vencida."
+            },
+            {
+                question: "Término para subsanar demanda tras inadmisión.",
+                options: [
+                    { text: "5 días.", correct: true },
+                    { text: "3 días.", correct: false },
+                    { text: "10 días.", correct: false }
+                ],
+                explanation: "Correcto. Art. 90 CGP otorga 5 días so pena de rechazo."
+            },
+            {
+                question: "¿Qué es el Amparo de Pobreza?",
+                options: [
+                    { text: "Exoneración de costos procesales y honorarios.", correct: true },
+                    { text: "Subsidio del Estado.", correct: false },
+                    { text: "Préstamo judicial.", correct: false }
+                ],
+                explanation: "Correcto. Art. 151 CGP: para quien no puede cubrir gastos sin afectar su subsistencia."
+            },
+            {
+                question: "Término de traslado de excepciones de mérito (Proceso Verbal).",
+                options: [
+                    { text: "5 días.", correct: true },
+                    { text: "3 días.", correct: false },
+                    { text: "10 días.", correct: false }
+                ],
+                explanation: "Correcto. Art. 370 CGP: demandante tiene 5 días para pedir pruebas sobre excepciones."
+            },
+            {
+                question: "Objeto de la Audiencia Inicial (CGP).",
+                options: [
+                    { text: "Conciliar, sanear, fijar litigio y decretar pruebas.", correct: true },
+                    { text: "Dictar sentencia únicamente.", correct: false },
+                    { text: "Presentar la demanda.", correct: false }
+                ],
+                explanation: "Correcto. Art. 372 CGP detalla estas etapas clave."
+            },
+            {
+                question: "¿Cuándo procede el recurso de Casación Civil?",
+                options: [
+                    { text: "Sentencias de tribunales en procesos de mayor cuantía con interés económico.", correct: true },
+                    { text: "Cualquier sentencia.", correct: false },
+                    { text: "Sentencias de jueces municipales.", correct: false }
+                ],
+                explanation: "Correcto. Es un recurso extraordinario con requisitos estrictos (Art. 333 CGP)."
+            },
+            {
+                question: "Prescripción de la acción cambiaria directa (Letra de Cambio).",
+                options: [
+                    { text: "3 años desde vencimiento.", correct: true },
+                    { text: "1 año.", correct: false },
+                    { text: "5 años.", correct: false }
+                ],
+                explanation: "Correcto. Art. 789 Código de Comercio."
+            },
+            {
+                question: "¿Qué es el juramento estimatorio?",
+                options: [
+                    { text: "Estimación razonada de perjuicios o compensaciones.", correct: true },
+                    { text: "Promesa de decir verdad en interrogatorio.", correct: false },
+                    { text: "Formalismo sin valor.", correct: false }
+                ],
+                explanation: "Correcto. Art. 206 CGP: requisito para reclamar indemnizaciones o compensaciones."
+            },
+            {
+                question: "¿Se puede desistir de una Tutela?",
+                options: [
+                    { text: "Sí, antes del fallo de primera instancia.", correct: true },
+                    { text: "No, son derechos irrenunciables.", correct: false },
+                    { text: "Solo con abogado.", correct: false }
+                ],
+                explanation: "Correcto. El desistimiento es procedente si no se ha dictado sentencia."
+            },
+            {
+                question: "Término para impugnar fallo de Tutela.",
+                options: [
+                    { text: "3 días siguientes a notificación.", correct: true },
+                    { text: "5 días.", correct: false },
+                    { text: "48 horas.", correct: false }
+                ],
+                explanation: "Correcto. Decreto 2591 de 1991."
+            },
+            {
+                question: "Causal de nulidad: Falta de jurisdicción o competencia.",
+                options: [
+                    { text: "Nulidad insanable (generalmente).", correct: true },
+                    { text: "Simple irregularidad.", correct: false },
+                    { text: "No afecta el proceso.", correct: false }
+                ],
+                explanation: "Correcto. Art. 133 CGP."
+            },
+            {
+                question: "Título ejecutivo complejo.",
+                options: [
+                    { text: "Varios documentos que juntos prueban obligación clara, expresa y exigible.", correct: true },
+                    { text: "Un documento muy largo.", correct: false },
+                    { text: "Una sentencia judicial.", correct: false }
+                ],
+                explanation: "Correcto. La unidad jurídica del título puede estar en varios documentos."
+            },
+            {
+                question: "Notificación por aviso (Art. 292 CGP).",
+                options: [
+                    { text: "Subsidiaria a la personal, se envía documento a dirección física/electrónica.", correct: true },
+                    { text: "Publicación en periódico.", correct: false },
+                    { text: "Llamada telefónica.", correct: false }
+                ],
+                explanation: "Correcto. Procede cuando no se logra notificación personal directa."
+            },
+            {
+                question: "¿Qué es la tacha de falsedad?",
+                options: [
+                    { text: "Mecanismo para desconocer autenticidad de documento.", correct: true },
+                    { text: "Recurso contra el juez.", correct: false },
+                    { text: "Error en la escritura.", correct: false }
+                ],
+                explanation: "Correcto. Art. 269 CGP: cuestiona la autenticidad material del documento."
+            },
+            {
+                question: "Prueba de oficio.",
+                options: [
+                    { text: "Decretada por el juez para esclarecer hechos.", correct: true },
+                    { text: "Aportada por demandante.", correct: false },
+                    { text: "Prohibida en civil.", correct: false }
+                ],
+                explanation: "Correcto. El juez tiene facultad-deber de decretar pruebas para hallar la verdad."
+            },
+            {
+                question: "Allanamiento a la demanda.",
+                options: [
+                    { text: "Aceptación expresa de hechos y pretensiones.", correct: true },
+                    { text: "Entrada forzada a inmueble.", correct: false },
+                    { text: "Silencio del demandado.", correct: false }
+                ],
+                explanation: "Correcto. Art. 98 CGP: acto procesal de aceptación que permite sentencia anticipada."
+            },
+            {
+                question: "Litisconsorcio necesario.",
+                options: [
+                    { text: "La decisión debe ser uniforme para todos, deben comparecer obligatoriamente.", correct: true },
+                    { text: "Pueden estar o no.", correct: false },
+                    { text: "Solo para abogados.", correct: false }
+                ],
+                explanation: "Correcto. La relación sustancial exige la presencia de todos los sujetos."
+            },
+            {
+                question: "Curador ad litem.",
+                options: [
+                    { text: "Abogado designado para defender a quien no comparece/no es ubicado.", correct: true },
+                    { text: "Juez auxiliar.", correct: false },
+                    { text: "Perito.", correct: false }
+                ],
+                explanation: "Correcto. Garantiza el derecho de defensa del ausente."
+            },
+            {
+                question: "Desistimiento tácito (Art. 317 CGP).",
+                options: [
+                    { text: "Terminación por inactividad de la parte obligada a impulsar.", correct: true },
+                    { text: "Renuncia voluntaria.", correct: false },
+                    { text: "Acuerdo entre partes.", correct: false }
+                ],
+                explanation: "Correcto. Sanción por dejar el proceso inactivo (1 o 2 años según etapa)."
+            },
+            {
+                question: "Excepción previa.",
+                options: [
+                    { text: "Ataca formalidades (competencia, trámite, capacidad).", correct: true },
+                    { text: "Ataca el fondo del asunto.", correct: false },
+                    { text: "Se presenta en alegatos.", correct: false }
+                ],
+                explanation: "Correcto. Buscan sanear el proceso desde el inicio."
+            },
+            {
+                question: "Medida cautelar innominada.",
+                options: [
+                    { text: "Cualquiera que juez considere razonable para proteger derecho.", correct: true },
+                    { text: "Solo embargo y secuestro.", correct: false },
+                    { text: "No existen en Colombia.", correct: false }
+                ],
+                explanation: "Correcto. Art. 590 CGP: facultad del juez para medidas atípicas."
+            },
+            {
+                question: "Término traslado recurso de apelación de auto.",
+                options: [
+                    { text: "3 días.", correct: true },
+                    { text: "5 días.", correct: false },
+                    { text: "1 día.", correct: false }
+                ],
+                explanation: "Correcto. Para que la contraparte se pronuncie."
+            },
+            {
+                question: "Término contestar demanda proceso verbal mayor cuantía.",
+                options: [
+                    { text: "20 días.", correct: true },
+                    { text: "10 días.", correct: false },
+                    { text: "15 días.", correct: false }
+                ],
+                explanation: "Correcto. Art. 369 CGP."
+            },
+            {
+                question: "Prueba pericial de parte.",
+                options: [
+                    { text: "Dictamen aportado por una de las partes con la demanda/contestación.", correct: true },
+                    { text: "Siempre designado por el juez.", correct: false },
+                    { text: "No es válido.", correct: false }
+                ],
+                explanation: "Correcto. CGP privilegia el peritaje aportado por las partes."
+            },
+            {
+                question: "Interrogatorio de parte extraprocesal.",
+                options: [
+                    { text: "Prueba anticipada para lograr confesión.", correct: true },
+                    { text: "Interrogatorio en audiencia de fallo.", correct: false },
+                    { text: "Entrevista informal.", correct: false }
+                ],
+                explanation: "Correcto. Busca constituir prueba antes del proceso."
+            },
+            {
+                question: "¿Cuándo se dicta sentencia anticipada?",
+                options: [
+                    { text: "Común acuerdo, no pruebas por practicar, o solo documentales.", correct: true },
+                    { text: "Cuando el juez tiene afán.", correct: false },
+                    { text: "Solo en penal.", correct: false }
+                ],
+                explanation: "Correcto. Art. 278 CGP."
+            },
+            {
+                question: "Ejecución de providencia judicial (sentencia).",
+                options: [
+                    { text: "A continuación del mismo proceso (ejecutivo a continuación).", correct: true },
+                    { text: "Demanda nueva en reparto.", correct: false },
+                    { text: "No se puede ejecutar.", correct: false }
+                ],
+                explanation: "Correcto. Art. 306 CGP: ante el mismo juez, sin reparto."
+            },
+            {
+                question: "Término para pagar costas aprobadas.",
+                options: [
+                    { text: "Ejecutoriado el auto que las aprueba.", correct: true },
+                    { text: "1 año.", correct: false },
+                    { text: "Nunca.", correct: false }
+                ],
+                explanation: "Correcto. Son exigibles una vez en firme la liquidación."
+            },
+            {
+                question: "Legitimación en la causa.",
+                options: [
+                    { text: "Ser titular del derecho sustancial reclamado.", correct: true },
+                    { text: "Ser abogado.", correct: false },
+                    { text: "Tener cédula.", correct: false }
+                ],
+                explanation: "Correcto. Presupuesto material para sentencia favorable."
+            },
+            {
+                question: "Petición de copias auténticas.",
+                options: [
+                    { text: "Ya no se requiere para ejecutivos (presunción de autenticidad).", correct: true },
+                    { text: "Obligatorio pedir sello del secretario.", correct: false },
+                    { text: "Solo en notaría.", correct: false }
+                ],
+                explanation: "Correcto. Mensajes de datos y copias simples tienen valor probatorio (CGP/Ley 2213)."
+            },
+            {
+                question: "Notificación por conducta concluyente.",
+                options: [
+                    { text: "Parte actúa en el proceso demostrando que conoce la providencia.", correct: true },
+                    { text: "Juez deduce que sabe.", correct: false },
+                    { text: "Aviso en la puerta.", correct: false }
+                ],
+                explanation: "Correcto. Art. 301 CGP: sanea falta de notificación formal."
+            },
+            {
+                question: "Recurso de Queja.",
+                options: [
+                    { text: "Cuando se deniega la apelación o casación.", correct: true },
+                    { text: "Contra el secretario.", correct: false },
+                    { text: "Por demora en el fallo.", correct: false }
+                ],
+                explanation: "Correcto. Busca que el superior conceda el recurso negado abajo."
+            },
+            {
+                question: "Arancel judicial en Colombia.",
+                options: [
+                    { text: "La justicia es gratuita (regla general).", correct: true },
+                    { text: "Se paga por radicar.", correct: false },
+                    { text: "Impuesto del 10%.", correct: false }
+                ],
+                explanation: "Correcto. Ley 270 de 1996: gratuidad, salvo expensas/agencias."
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        // Variable para guardar las 3 preguntas seleccionadas de la partida actual
+        let currentGameQuestions = [];
+
+        function startGame() {
+            currentQuestionIndex = 0;
+            score = 0;
+            
+            // Lógica de Aleatoriedad: Mezclar y tomar 3
+            // Usamos una copia del array ([...questionBank]) para no alterar el original
+            currentGameQuestions = [...questionBank].sort(() => 0.5 - Math.random()).slice(0, 3);
+
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('end-screen').classList.add('hidden');
+            document.getElementById('question-screen').classList.remove('hidden');
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            // Usamos currentGameQuestions en lugar de questionBank directo
+            const q = currentGameQuestions[currentQuestionIndex];
+            
+            // Actualizar UI
+            document.getElementById('question-counter').innerText = `CASO ${currentQuestionIndex + 1} DE ${currentGameQuestions.length}`;
+            document.getElementById('score-display').innerText = `ACIERTOS: ${score}`;
+            document.getElementById('question-text').innerText = q.question;
+            
+            // Ocultar explicación y botón siguiente
+            document.getElementById('explanation-container').classList.add('hidden');
+            document.getElementById('next-btn-container').classList.add('hidden');
+
+            // Generar botones
+            const optionsDiv = document.getElementById('options-container');
+            optionsDiv.innerHTML = ''; 
+
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.innerHTML = `<span class="font-bold mr-2 text-gold-400">${String.fromCharCode(65 + index)}:</span> ${opt.text}`;
+                btn.className = "option-btn w-full text-left p-4 rounded-lg shadow-sm font-medium text-sm md:text-base";
+                btn.onclick = (e) => handleAnswer(e.currentTarget, opt.correct, q.explanation);
+                optionsDiv.appendChild(btn);
+            });
+        }
+
+        function handleAnswer(selectedBtn, isCorrect, explanationText) {
+            // Deshabilitar todos los botones
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add('opacity-70');
+            });
+            selectedBtn.classList.remove('opacity-70');
+
+            // Mostrar resultado visual
+            const title = document.getElementById('explanation-title');
+            
+            if (isCorrect) {
+                selectedBtn.classList.add('correct-answer');
+                selectedBtn.innerHTML += ' <i class="fa-solid fa-check-circle ml-2 text-xl"></i>';
+                score++;
+                title.innerHTML = '<span class="text-green-400">¡Correcto! Fundamento Jurídico</span>';
+                document.getElementById('score-display').innerText = `ACIERTOS: ${score}`;
+            } else {
+                selectedBtn.classList.add('wrong-answer');
+                selectedBtn.innerHTML += ' <i class="fa-solid fa-circle-xmark ml-2 text-xl"></i>';
+                title.innerHTML = '<span class="text-red-400">Incorrecto. Fundamento Jurídico</span>';
+            }
+
+            // Mostrar Explicación
+            const explanationContainer = document.getElementById('explanation-container');
+            const explanationContent = document.getElementById('explanation-text');
+            
+            explanationContent.innerHTML = explanationText;
+            explanationContainer.classList.remove('hidden');
+
+            // Mostrar botón siguiente
+            document.getElementById('next-btn-container').classList.remove('hidden');
+            
+            // Scroll automático hacia la explicación en móviles
+            if(window.innerWidth < 768) {
+                explanationContainer.scrollIntoView({behavior: "smooth"});
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < currentGameQuestions.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('question-screen').classList.add('hidden');
+            const endScreen = document.getElementById('end-screen');
+            endScreen.classList.remove('hidden');
+
+            const title = document.getElementById('final-title');
+            const scoreText = document.getElementById('final-score-text');
+            const msg = document.getElementById('final-message');
+            const icon = document.getElementById('final-icon');
+
+            // Mostrar resultado numérico exacto
+            scoreText.innerText = `Resultado: ${score} de ${currentGameQuestions.length} respuestas correctas`;
+
+            if (score === 3) {
+                icon.innerHTML = '<i class="fa-solid fa-trophy text-gold-500 animate-bounce"></i>';
+                title.innerText = "¡LITIGANTE EXPERTO!";
+                msg.innerText = "Has demostrado un dominio excepcional de la práctica jurídica y la normativa vigente. Tu perfil es de alto nivel.";
+            } else if (score === 2) {
+                icon.innerHTML = '<i class="fa-solid fa-thumbs-up text-blue-400"></i>';
+                title.innerText = "BUEN CRITERIO";
+                msg.innerText = "Tienes bases sólidas. Fallaste en un detalle técnico, pero tu lógica jurídica es correcta. ¡Casi perfecto!";
+            } else {
+                icon.innerHTML = '<i class="fa-solid fa-book-open-reader text-slate-400"></i>';
+                title.innerText = "SIGUE ACTUALIZÁNDOTE";
+                msg.innerText = "El derecho es dinámico. Repasar las normas procesales recientes fortalecerá tu perfil.";
+            }
+        }
+    </script>
+</body>
+</html>
