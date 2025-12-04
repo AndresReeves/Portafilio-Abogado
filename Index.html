@@ -40,10 +40,17 @@
     
     <style>
         /* ========================================= */
-        /* CORRECCIÓN CRÍTICA: OCULTAR CV EN PANTALLA */
+        /* CORRECCIÓN CRÍTICA: OCULTAMIENTO ROBUSTO */
         /* ========================================= */
-        #formal-cv-print {
-            display: none !important; /* Asegura que no se vea en la web */
+        
+        /* Esta clase asegura que el elemento NUNCA se vea en pantalla */
+        .print-only {
+            display: none !important;
+            opacity: 0;
+            height: 0;
+            width: 0;
+            overflow: hidden;
+            visibility: hidden;
         }
 
         html { scroll-behavior: smooth; }
@@ -144,25 +151,6 @@
         }
 
         /* --- ESTILOS DE VIDEO --- */
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* Ratio 16:9 */
-            height: 0;
-            overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            background-color: #000;
-        }
-        .video-container video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* --- MODAL DE VIDEO --- */
         #video-modal {
             transition: opacity 0.3s ease;
         }
@@ -209,11 +197,17 @@
                 padding: 0 !important;
             }
 
-            #formal-cv-print {
+            /* AQUÍ "REVIVIMOS" EL CV FORMAL SOLO PARA LA IMPRESORA */
+            .print-only {
                 display: block !important;
                 visibility: visible !important;
                 height: auto !important;
+                width: 100% !important;
                 overflow: visible !important;
+                opacity: 1 !important;
+            }
+
+            #formal-cv-print {
                 background-color: white;
                 color: black;
                 font-family: 'Times New Roman', Times, serif;
@@ -222,60 +216,18 @@
                 font-size: 11pt;
             }
 
-            .print-header {
-                text-align: center;
-                border-bottom: 1px solid #333;
-                padding-bottom: 10px;
-                margin-bottom: 20px;
-            }
-            .print-header h1 {
-                font-size: 22pt;
-                font-weight: bold;
-                margin: 0;
-                color: #0f172a;
-            }
-            .print-header p {
-                margin: 2px 0;
-                font-size: 10pt;
-            }
-            .print-section {
-                margin-bottom: 15px;
-                break-inside: auto !important; 
-                page-break-inside: auto !important;
-            }
-            .print-section h2 {
-                font-size: 14pt;
-                color: #0f172a;
-                border-bottom: 1px solid #ccc;
-                margin-bottom: 10px;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-                break-after: avoid; 
-                page-break-after: avoid;
-            }
-            .print-job {
-                margin-bottom: 12px;
-                break-inside: auto !important; 
-                page-break-inside: auto !important;
-            }
-            .print-job-header {
-                display: flex;
-                justify-content: space-between;
-                font-weight: bold;
-                break-inside: avoid;
-                page-break-inside: avoid;
-            }
-            .print-job-title {
-                font-style: italic;
-                margin-bottom: 4px;
-            }
-            .print-list {
-                margin-top: 4px;
-                padding-left: 20px;
-            }
-            .print-list li {
-                margin-bottom: 2px;
-            }
+            .print-header { text-align: center; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
+            .print-header h1 { font-size: 22pt; font-weight: bold; margin: 0; color: #0f172a; }
+            .print-header p { margin: 2px 0; font-size: 10pt; }
+            
+            .print-section { margin-bottom: 15px; break-inside: auto !important; page-break-inside: auto !important; }
+            .print-section h2 { font-size: 14pt; color: #0f172a; border-bottom: 1px solid #ccc; margin-bottom: 10px; text-transform: uppercase; break-after: avoid; }
+            
+            .print-job { margin-bottom: 12px; break-inside: auto !important; page-break-inside: auto !important; }
+            .print-job-header { display: flex; justify-content: space-between; font-weight: bold; break-inside: avoid; }
+            .print-job-title { font-style: italic; margin-bottom: 4px; }
+            .print-list { margin-top: 4px; padding-left: 20px; }
+            .print-list li { margin-bottom: 2px; }
         }
     </style>
 </head>
@@ -292,7 +244,6 @@
                 </div>
                 <div class="hidden md:flex space-x-8">
                     <a href="#perfil" class="text-slate-600 hover:text-gold-500 transition duration-300 font-medium">Perfil</a>
-                    <!-- Se eliminó enlace 'Presentación' del menú ya que ahora está en el Hero -->
                     <a href="#servicios" class="text-slate-600 hover:text-gold-500 transition duration-300 font-medium">Áreas de Práctica</a>
                     <a href="#experiencia" class="text-slate-600 hover:text-gold-500 transition duration-300 font-medium">Experiencia</a>
                     <a href="#educacion" class="text-slate-600 hover:text-gold-500 transition duration-300 font-medium">Formación</a>
@@ -353,17 +304,16 @@
             </button>
             
             <div class="relative pb-[56.25%] h-0 bg-black">
-                <!-- VIDEO LOCAL HTML5 -->
-                <!-- El usuario debe tener el archivo 'video_presentacion.mp4' en la misma carpeta -->
+                <!-- VIDEO LOCAL PARA GITHUB PAGES -->
                 <video id="modal-video-player" controls class="absolute top-0 left-0 w-full h-full">
                     <source src="video_presentacion.mp4" type="video/mp4">
-                    Su navegador no soporta la etiqueta de video. Por favor actualice su navegador.
+                    Tu navegador no soporta la etiqueta de video.
                 </video>
             </div>
         </div>
     </div>
 
-    <!-- Sección Perfil (SIN FOTO) -->
+    <!-- Sección Perfil (SIN FOTO, SOLO TEXTO) -->
     <section id="perfil" class="py-20 bg-white">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -427,8 +377,6 @@
             </div>
         </div>
     </section>
-
-    <!-- SECCIÓN DE VIDEO ELIMINADA (Ahora solo en Modal) -->
 
     <!-- NUEVA SECCIÓN: ÁREAS DE PRÁCTICA (SERVICIOS) -->
     <section id="servicios" class="py-20 bg-slate-50">
@@ -508,7 +456,7 @@
         </div>
     </section>
 
-    <!-- Sección Experiencia -->
+    <!-- Sección Experiencia (EXPANDIBLE) -->
     <section id="experiencia" class="py-20 bg-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
@@ -808,7 +756,7 @@
     <!--  HOJA DE VIDA FORMAL (OCULTA EN PANTALLA) -->
     <!-- ========================================= -->
     
-    <div id="formal-cv-print">
+    <div id="formal-cv-print" class="print-only">
         <div class="print-header">
             <h1>Doctor Andrés Mauricio Sanabria Cepeda</h1>
             <p><strong>Abogado | Analista Jurídico y Procesal</strong></p>
